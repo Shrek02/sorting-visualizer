@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Visualizer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../src/styles.css">
+    
+</head>
+<body id = 'container'>
+    <nav class="navbar navbar-dark bg-dark" id = "navbar">
+        <a class="navbar-brand" style="color: white">Sorting Visualizer</a>
+        <div class = "mr-auto parameters">
+            <div >
+                <button type="button" class = "btn btn-dark parameter" id = "newArray">Generate Array</button>
+            </div>
+            <div class = 'slider'>
+                <input type="range" min="10" max="200" value="100" class="form-range parameter" id="arrayRange" name = 'arraySize'>
+                <label for = "arraySize" class = 'labels'>Array Size</label>
+            </div>
+            <div class = 'slider'>
+                <input type="range" min="0" max="100" value="90" class="form-range parameter" id="timeOutRange" name = 'timeOut'>
+                <label for = "arraySize" class = 'labels'>Sorting Speed</label>
+            </div>
+        </div>
+        <button type="button" class = "btn btn-dark" id = "bubbleSort">Bubble Sort</button>
+        <button type="button" class = "btn btn-dark" id = "selectionSort">Selection Sort</button>
+        <button type="button" class = "btn btn-dark" id = "insertionSort">Insertion Sort</button>
+        <button type="button" class = "btn btn-dark" id = "quickSort">Quick Sort</button>
+        <button type="button" class = "btn btn-dark" id = "mergeSort">Merge Sort</button>
+      </nav>
+      <div id="bars"></div>
+    
+</body>
+<script src = "../src/app.js"></script>
+</html>
