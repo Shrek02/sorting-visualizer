@@ -3,12 +3,14 @@
 //Global variables
 let arr = [];
 let size = 100;
+const area = window.innerWidth*0.75;
 let timeOut = 10;
+let width = 5;
+let padding = 1;
+let barDesign = width + 'px solid white';
+let compareDesign = width + 'px solid goldenRod';
+let sortedDesign = width + 'px solid green';
 generateLines();
-const barDesign = '5px solid white';
-const compareDesign = '5px solid goldenRod';
-const sortedDesign = '5px solid green';
-
 ///////////////////////////////////////////////////////////////////
 //Configuring Slider
 //Array Size 
@@ -31,6 +33,12 @@ document.getElementById("newArray").addEventListener("click", generateLines);
 ///////////////////////////////////////////////////////////////////
 //Generate new random array function
 function generateLines(){
+    let lineWidth = area/size;
+    width = (lineWidth*5)/7;
+    padding = (lineWidth*1)/7;
+    barDesign = width + 'px solid white';
+    compareDesign = width + 'px solid goldenRod';
+    sortedDesign = width + 'px solid green';
     document.getElementById("bars").innerHTML = "";
     
     arr = createArray();
@@ -54,8 +62,9 @@ function createDivs() {
     
     for(var i = 0; i < size; i++) {
         const div = document.createElement('div');
-        div.classList.add('bar');
+        div.style.cssText = `border-left: ${width}px solid white; padding: ${padding}px;`
         div.style.height = arr[i]*5.5 + 'px';
+        div.classList.add('bar');
         div.setAttribute('id', `${i}`);
         const parentDiv = document.getElementById('bars')
         parentDiv.appendChild(div);
@@ -65,7 +74,7 @@ function createDivs() {
 
 ///////////////////////////////////////////////////////////////////
 //Method to generate delay
-async function delay() {
+async function delay(timeOut = 0) {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve();
@@ -126,7 +135,7 @@ async function bubbleSort() {
             let el2 = document.getElementById(j);
             
             if(compare(el1, el2) > 0){
-                await delay();
+                await delay(timeOut);
                 swap(el1, el2);
             }
             el1.style.borderLeft = barDesign;
@@ -148,7 +157,7 @@ async function selectionSort() {
         for(let j = i + 1; j < size; j++) {
             let curEl = document.getElementById(j);
             if(compare(minEl, curEl) > 0){
-                await delay();
+                await delay(timeOut);
                 minEl.style.borderLeft = barDesign;
                 minEl = curEl;
             }
@@ -175,7 +184,7 @@ async function insertionSort() {
         let k = i - 1;
         
         while(k >= 0 && compare(curEl, document.getElementById(k)) < 0){
-            await delay();
+            await delay(timeOut);
             curEl.style.borderLeft = barDesign;
             document.getElementById(k).style.borderLeft = barDesign;
             k--;
@@ -220,7 +229,7 @@ async function hoare(l, h) {
     while(true){
         
         do{
-            await delay();
+            await delay(timeOut);
             if(i >= l){
                 document.getElementById(i).style.borderLeft = barDesign;
                 pivot.style.borderLeft = barDesign;
@@ -232,7 +241,7 @@ async function hoare(l, h) {
         document.getElementById(i).style.borderLeft = barDesign;
         
         do {
-            await delay();
+            await delay(timeOut);
             if( j<= h){
                 document.getElementById(j).style.borderLeft = barDesign;
             pivot.style.borderLeft = barDesign;
@@ -254,12 +263,12 @@ async function lomuto(l, h) {
     for(let i = l; i<= h; i++){
         if(compare(document.getElementById(i), pivot) < 0){
             win++;
-            await delay();
+            await delay(timeOut);
             document.getElementById(i).style.borderLeft = barDesign;
             pivot.style.borderLeft = barDesign;
             swap(document.getElementById(i), document.getElementById(win));
         }
-        await delay();
+        await delay(timeOut);
         document.getElementById(i).style.borderLeft = barDesign;
         pivot.style.borderLeft = barDesign;
         
@@ -314,7 +323,7 @@ async function merge(l, m, h) {
     
     while(i < a.length && j < b.length){
         compare(document.getElementById(l + i), document.getElementById(m + j + 1));
-        await delay();
+        await delay(timeOut);
         if(a[i] <= b[j]){
             document.getElementById(l + i).style.borderLeft = barDesign;
             document.getElementById(m + j + 1).style.borderLeft = barDesign;
@@ -335,7 +344,7 @@ async function merge(l, m, h) {
     
     while(i < a.length){
         document.getElementById(l + i).style.borderLeft = compareDesign;
-        await delay();
+        await delay(timeOut);
         document.getElementById(l + i).style.borderLeft = barDesign;
         if(m + j + 1 < size){
             document.getElementById(m + j + 1).style.borderLeft = barDesign;
@@ -349,7 +358,7 @@ async function merge(l, m, h) {
     
     while(j < b.length){
         compare(document.getElementById(l + i), document.getElementById(m + j + 1));
-        await delay();
+        await delay(timeOut);
         document.getElementById(l + i).style.borderLeft = barDesign;
         document.getElementById(m + j + 1).style.borderLeft = barDesign;
         arr[k] = b[j];
@@ -371,7 +380,7 @@ async function mSort(l ,h) {
         await merge(l, m, h);
     }
     for(let i = l; i <= h; i++){
-        await delay();
+        await delay(0);
         document.getElementById(i).style.borderLeft = sortedDesign;
     }
       
