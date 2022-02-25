@@ -4,7 +4,7 @@
 let arr = [];
 let size = 100;
 const area = window.innerWidth*0.75;
-let timeOut = 10;
+let timeOut = 0;
 let width = 5;
 let padding = 1;
 let barDesign = width + 'px solid white';
@@ -130,18 +130,20 @@ document.getElementById("bubbleSort").addEventListener("click", bubbleSort);
 async function bubbleSort() {
     disable();
     for(let i = 0; i < size; i++){
-        for(let j = i+1; j < size; j++){
-            let el1 = document.getElementById(i);
+        for(let j = 1; j < size; j++){
+            let el1 = document.getElementById(j-1);
             let el2 = document.getElementById(j);
             
             if(compare(el1, el2) > 0){
-                await delay(timeOut);
+                await delay(timeOut); 
                 swap(el1, el2);
             }
             el1.style.borderLeft = barDesign;
             el2.style.borderLeft = barDesign;
         }
-        document.getElementById(i).style.borderLeft = sortedDesign;
+        for(let j = size-1; j >=size -  i-1; j--){
+            document.getElementById(j).style.borderLeft = sortedDesign;
+        }
     }
     enable();
 }
@@ -367,7 +369,10 @@ async function merge(l, m, h) {
         j++;
     }
  
-    
+    for(let i = l; i <= h; i++){
+        await delay();
+        document.getElementById(i).style.borderLeft = sortedDesign;
+    }
 }
 
 async function mSort(l ,h) {
@@ -378,12 +383,7 @@ async function mSort(l ,h) {
         await mSort(l, m);
         await mSort(m + 1, h);
         await merge(l, m, h);
-    }
-    for(let i = l; i <= h; i++){
-        await delay(0);
-        document.getElementById(i).style.borderLeft = sortedDesign;
-    }
-      
+    }      
 }
 
 async function mergeSort(){
